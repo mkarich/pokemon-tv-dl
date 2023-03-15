@@ -83,3 +83,5 @@ episodes/*
 !episodes/.gitkeep
 episodes/complete/*
 !episodes/complete/.gitkeep
+
+log
