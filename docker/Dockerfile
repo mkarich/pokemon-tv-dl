@@ -1,11 +1,11 @@
-FROM ubuntu:bionic
+FROM ubuntu:jammy
 
 # Only for build else might confuse others who run apt-get
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe
 ENV ENVIRONMENT=development;
-ENV PHP_VERSION=7.2
-ENV NODE_VERSION=10.x
+ENV PHP_VERSION=8.1
+ENV NODE_VERSION=18.x
 
 # This can still generate noise, I have investigated the reason and some say a hack works but many
 # don't, as such I have avoided adding even more vars and layers and just let it output to console
@@ -17,8 +17,7 @@ RUN apt-get -qq update \
 # OAuth has been built in a way that causes php version folders to be created under
 # /etc/php for 5.6, 7.0, 7.1, 7.2 and 7.3. It does not install these versions, instead
 # just makes a file for the plugin within the mods-available folder in each version
-RUN add-apt-repository ppa:ondrej/php \
-    && apt-get -qq update \
+RUN apt-get -qq update \
     && apt-get --yes install php${PHP_VERSION}-fpm \
     php${PHP_VERSION}-cli \
     php${PHP_VERSION}-curl \
